@@ -1,0 +1,2 @@
+rootProject.name='FoodManagerRoomTest'
+include ':app'
