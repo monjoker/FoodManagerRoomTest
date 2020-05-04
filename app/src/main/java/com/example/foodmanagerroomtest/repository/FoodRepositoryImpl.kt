@@ -4,7 +4,7 @@ import com.example.foodmanagerroomtest.database.domain.Food
 import com.example.foodmanagerroomtest.database.local.FoodDao
 
 class FoodRepositoryImpl(override var foodDatabase: FoodDao) : FoodRepository {
-    override fun getListFood(): List<Food?> = foodDatabase.getListFoods()
+    override fun getListFood() = foodDatabase.getListFoods()
 
     override fun deleteFood(food: Food, deleteExtension: () -> Unit) {
         foodDatabase.deleteFood(food)

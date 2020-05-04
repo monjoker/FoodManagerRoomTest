@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.foodmanagerroomtest.R
@@ -20,6 +21,8 @@ class AddFoodFragment() : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         bindingFragment = DataBindingUtil.inflate(inflater, R.layout.fragment_add_food, container, false)
+        val number = addFoodViewModel.number
+        Toast.makeText(context,number.toString(),Toast.LENGTH_SHORT).show()
         return bindingFragment.root
     }
 }
