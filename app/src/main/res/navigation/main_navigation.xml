@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation"
-    app:startDestination="@id/addFoodFragment">
+    app:startDestination="@id/showFoodFragment">
 
     <fragment
         android:id="@+id/addFoodFragment"
-        android:name="com.example.foodmanagerroomtest.ui.addfood.view.AddFoodFragment"
+        android:name="com.example.foodmanagerroomtest.ui.addfoodui.view.AddFoodFragment"
         android:label="AddFoodFragment" >
         <action
             android:id="@+id/action_addFoodFragment_to_showFoodFragment"
@@ -13,10 +13,21 @@
     </fragment>
     <fragment
         android:id="@+id/showFoodFragment"
-        android:name="com.example.foodmanagerroomtest.ui.showfood.view.ShowFoodFragment"
+        android:name="com.example.foodmanagerroomtest.ui.showfoodui.view.ShowFoodFragment"
         android:label="ShowFoodFragment" >
         <action
             android:id="@+id/action_showFoodFragment_to_addFoodFragment"
             app:destination="@id/addFoodFragment" />
+        <action
+            android:id="@+id/action_showFoodFragment_to_updateFoodFragment"
+            app:destination="@id/updateFoodFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFoodFragment"
+        android:name="com.example.foodmanagerroomtest.ui.updatefoodui.view.UpdateFoodFragment"
+        android:label="UpdateFoodFragment" >
+        <action
+            android:id="@+id/action_updateFoodFragment_to_showFoodFragment"
+            app:destination="@id/showFoodFragment" />
     </fragment>
 </navigation>

@@ -2,9 +2,10 @@ package com.example.foodmanagerroomtest.repository
 
 import com.example.foodmanagerroomtest.database.domain.Food
 import com.example.foodmanagerroomtest.database.local.FoodDao
+import kotlinx.coroutines.flow.Flow
 
 class FoodRepositoryImpl(override var foodDatabase: FoodDao) : FoodRepository {
-    override fun getListFood(): List<Food?> = foodDatabase.getListFoods()
+    override fun getListFood(): Flow<List<Food>> = foodDatabase.getListFoods()
 
     override fun deleteFood(food: Food, deleteExtension: () -> Unit) {
         foodDatabase.deleteFood(food)

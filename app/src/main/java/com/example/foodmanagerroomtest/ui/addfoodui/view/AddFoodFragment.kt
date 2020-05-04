@@ -1,4 +1,4 @@
-package com.example.foodmanagerroomtest.ui.addfood.view
+package com.example.foodmanagerroomtest.ui.addfoodui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.foodmanagerroomtest.R
 import com.example.foodmanagerroomtest.databinding.FragmentAddFoodBinding
-import com.example.foodmanagerroomtest.ui.addfood.viewmodel.AddFoodViewModel
+import com.example.foodmanagerroomtest.ui.addfoodui.viewmodel.AddFoodViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddFoodFragment() : Fragment(){
-    lateinit var bindingFragment: FragmentAddFoodBinding
+    private lateinit var bindingFragment: FragmentAddFoodBinding
     val addFoodViewModel by viewModel<AddFoodViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
