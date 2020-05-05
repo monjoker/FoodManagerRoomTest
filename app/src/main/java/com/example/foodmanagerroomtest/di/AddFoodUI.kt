@@ -1,6 +1,6 @@
 package com.example.foodmanagerroomtest.di
 
-import com.example.foodmanagerroomtest.ui.addfood.viewmodel.AddFoodViewModel
+import com.example.foodmanagerroomtest.ui.addfoodui.viewmodel.AddFoodViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
