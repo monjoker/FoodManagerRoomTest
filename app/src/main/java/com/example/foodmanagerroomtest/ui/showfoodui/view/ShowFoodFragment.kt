@@ -45,7 +45,8 @@ class ShowFoodFragment : Fragment() {
             foodAdapter.submitList(it)
         })
         bindingFragment.showFoodRecycler.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) //true
+            //LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) //false
             adapter = foodAdapter
         }
         bindingFragment.addFoodBtn.setOnClickListener(addClickBtn)
