@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface FoodRepository {
     var foodDatabase: FoodDao
     fun getListFood(): Flow<List<Food>>
-    fun deleteFood(food: Food, deleteExtension: () -> Unit)
-    fun addFood(food: Food, insertExtension: ()-> Unit)
+    suspend fun deleteFood(food: Food)
+    suspend fun addFood(food: Food)
+    suspend fun updateFood(food: Food)
 }

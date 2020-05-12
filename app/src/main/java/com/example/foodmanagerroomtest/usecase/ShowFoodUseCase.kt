@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface ShowFoodUseCase {
     var foodRepository: FoodRepository
     fun getListFood() : Flow<List<Food>>
-    fun deleteFood(food: Food, deleteExtension: ()-> Unit)
+    suspend fun deleteFood(food: Food)
 }

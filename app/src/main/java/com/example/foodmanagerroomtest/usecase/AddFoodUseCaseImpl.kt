@@ -4,6 +4,6 @@ import com.example.foodmanagerroomtest.database.domain.Food
 import com.example.foodmanagerroomtest.repository.FoodRepository
 
 class AddFoodUseCaseImpl(override val foodRepository: FoodRepository) : AddFoodUseCase {
-    override fun addFood(food: Food, insertExtension: () -> Unit) =
-        foodRepository.addFood(food, insertExtension)
+    override suspend fun addFood(food: Food) =
+        foodRepository.addFood(food)
 }

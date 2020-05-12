@@ -6,11 +6,7 @@
     <fragment
         android:id="@+id/addFoodFragment"
         android:name="com.example.foodmanagerroomtest.ui.addfoodui.view.AddFoodFragment"
-        android:label="AddFoodFragment" >
-        <action
-            android:id="@+id/action_addFoodFragment_to_showFoodFragment"
-            app:destination="@id/showFoodFragment" />
-    </fragment>
+        android:label="AddFoodFragment" />
     <fragment
         android:id="@+id/showFoodFragment"
         android:name="com.example.foodmanagerroomtest.ui.showfoodui.view.ShowFoodFragment"
@@ -25,9 +21,5 @@
     <fragment
         android:id="@+id/updateFoodFragment"
         android:name="com.example.foodmanagerroomtest.ui.updatefoodui.view.UpdateFoodFragment"
-        android:label="UpdateFoodFragment" >
-        <action
-            android:id="@+id/action_updateFoodFragment_to_showFoodFragment"
-            app:destination="@id/showFoodFragment" />
-    </fragment>
+        android:label="UpdateFoodFragment" />
 </navigation>

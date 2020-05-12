@@ -5,5 +5,5 @@ import com.example.foodmanagerroomtest.repository.FoodRepository
 
 interface AddFoodUseCase {
     val foodRepository: FoodRepository
-    fun addFood(food: Food, insertExtension: () -> Unit)
+    suspend fun addFood(food: Food)
 }

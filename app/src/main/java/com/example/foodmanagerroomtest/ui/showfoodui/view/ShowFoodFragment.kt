@@ -17,28 +17,36 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
-class ShowFoodFragment() : Fragment() {
+class ShowFoodFragment : Fragment() {
     private lateinit var bindingFragment: FragmentShowFoodBinding
     private val showFoodViewModel by viewModel<ShowFoodViewModel>()
     private val foodAdapter by lazy { FoodAdapter() }
-    private val foodNavigate by lazy { findNavController() }
-    private val addClickBtn by lazy { View.OnClickListener { /*foodNavigate.navigate()*/ } }
+    val foodNavigate by lazy { findNavController() }
+    private val addClickBtn by lazy {
+        View.OnClickListener {
+            foodNavigate.navigate(
+                ShowFoodFragmentDirections.actionShowFoodFragmentToAddFoodFragment()
+            )
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         bindingFragment = DataBindingUtil.inflate(inflater, R.layout.fragment_show_food, container, false)
+        foodAdapter.setFrag(this)
         return bindingFragment.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        foodAdapter.submitList(showFoodViewModel.listFood.value)
         showFoodViewModel.listFood.observe(viewLifecycleOwner, Observer {
             foodAdapter.submitList(it)
         })
         bindingFragment.showFoodRecycler.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = foodAdapter
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
         bindingFragment.addFoodBtn.setOnClickListener(addClickBtn)
     }

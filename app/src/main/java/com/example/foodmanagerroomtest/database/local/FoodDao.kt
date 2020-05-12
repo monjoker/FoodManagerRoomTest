@@ -7,8 +7,15 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FoodDao {
-    @Query("SELECT * FROM FOODS") fun getListFoods(): Flow<List<Food>>
-    @Insert(onConflict = REPLACE) fun insertFood(food: Food?)
-    @Update(onConflict = REPLACE) fun updateFood(food: Food?)
-    @Delete fun deleteFood(food: Food?)
+    @Query("SELECT * FROM FOODS")
+    fun getListFoods(): Flow<List<Food>>
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertFood(food: Food)
+
+    @Update(onConflict = REPLACE)
+    suspend fun updateFood(food: Food)
+
+    @Delete
+    suspend fun deleteFood(food: Food)
 }

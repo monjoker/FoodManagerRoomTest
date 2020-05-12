@@ -12,4 +12,5 @@ data class Food(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0
+    constructor(): this("","")
 }

@@ -2,18 +2,19 @@ package com.example.foodmanagerroomtest.repository
 
 import com.example.foodmanagerroomtest.database.domain.Food
 import com.example.foodmanagerroomtest.database.local.FoodDao
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 
+@ExperimentalCoroutinesApi
 class FoodRepositoryImpl(override var foodDatabase: FoodDao) : FoodRepository {
-    override fun getListFood(): Flow<List<Food>> = foodDatabase.getListFoods()
+    override fun getListFood(): Flow<List<Food>> =
+        foodDatabase.getListFoods().distinctUntilChanged()
 
-    override fun deleteFood(food: Food, deleteExtension: () -> Unit) {
-        foodDatabase.deleteFood(food)
-        deleteExtension
-    }
+    override suspend fun deleteFood(food: Food) = foodDatabase.deleteFood(food)
 
-    override fun addFood(food: Food, insertExtension: ()-> Unit) {
-        foodDatabase.insertFood(food)
-        insertExtension
-    }
+
+    override suspend fun addFood(food: Food) = foodDatabase.insertFood(food)
+
+    override suspend fun updateFood(food: Food) = foodDatabase.updateFood(food)
 }

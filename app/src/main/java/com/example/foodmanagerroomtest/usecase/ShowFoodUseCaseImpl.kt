@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class ShowFoodUseCaseImpl(override var foodRepository: FoodRepository) : ShowFoodUseCase {
     override fun getListFood(): Flow<List<Food>> = foodRepository.getListFood()
-    override fun deleteFood(food: Food, deleteExtension: () -> Unit) =
-        foodRepository.deleteFood(food, deleteExtension)
+    override suspend fun deleteFood(food: Food) =
+        foodRepository.deleteFood(food)
 }

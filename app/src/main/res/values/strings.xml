@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">FoodManagerRoomTest</string>
     <string name="add_food">Add Food</string>
+    <string name="title_id_food">Id:</string>
+    <string name="title_name_food">Name</string>
+    <string name="title_description_food">Description</string>
+    <string name="success">\" success\"</string>
+    <string name="show_food">Show food</string>
 </resources>

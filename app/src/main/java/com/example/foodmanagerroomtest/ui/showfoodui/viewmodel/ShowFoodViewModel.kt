@@ -11,12 +11,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 class ShowFoodViewModel(private val showFoodUseCase: ShowFoodUseCase) : ViewModel() {
     val listFood by lazy { MutableLiveData<List<Food>>() }
     init {
-        viewModelScope.launch {
-            showFoodUseCase.getListFood().flowOn(Dispatchers.IO).collect {
+        viewModelScope.launch(Dispatchers.IO) {
+            showFoodUseCase.getListFood().collect {
                 listFood.postValue(it)
             }
         }
