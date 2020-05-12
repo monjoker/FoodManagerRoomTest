@@ -1,6 +1,7 @@
 package com.example.foodmanagerroomtest
 
 import android.app.Application
+import android.util.Log
 import com.example.foodmanagerroomtest.di.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.koin.androidContext
@@ -24,5 +25,6 @@ class FoodApplication : Application() {
                 )
             )
         }
+        Log.i("","")
     }
 }
