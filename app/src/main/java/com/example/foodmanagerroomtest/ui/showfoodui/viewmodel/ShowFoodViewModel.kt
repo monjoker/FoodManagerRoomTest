@@ -13,11 +13,16 @@ import kotlinx.coroutines.launch
 
 class ShowFoodViewModel(private val showFoodUseCase: ShowFoodUseCase) : ViewModel() {
     val listFood by lazy { MutableLiveData<List<Food>>() }
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             showFoodUseCase.getListFood().collect {
                 listFood.postValue(it)
             }
         }
+    }
+
+    fun deleteFood(food: Food)= viewModelScope.launch(Dispatchers.IO){
+        showFoodUseCase.deleteFood(food)
     }
 }

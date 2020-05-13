@@ -8,10 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodmanagerroomtest.R
 import com.example.foodmanagerroomtest.databinding.FragmentShowFoodBinding
 import com.example.foodmanagerroomtest.ui.showfoodui.utils.FoodAdapter
+import com.example.foodmanagerroomtest.ui.showfoodui.utils.FoodTouchHelperCallBack
 import com.example.foodmanagerroomtest.ui.showfoodui.viewmodel.ShowFoodViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +24,7 @@ class ShowFoodFragment : Fragment() {
     private val showFoodViewModel by viewModel<ShowFoodViewModel>()
     private val foodAdapter by lazy { FoodAdapter() }
     val foodNavigate by lazy { findNavController() }
+    private val foodTouchHelper by lazy { ItemTouchHelper(FoodTouchHelperCallBack(showFoodViewModel)) }
     private val addClickBtn by lazy {
         View.OnClickListener {
             foodNavigate.navigate(
@@ -48,6 +51,7 @@ class ShowFoodFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) //true
             //LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) //false
             adapter = foodAdapter
+            foodTouchHelper.attachToRecyclerView(this)
         }
         bindingFragment.addFoodBtn.setOnClickListener(addClickBtn)
     }
