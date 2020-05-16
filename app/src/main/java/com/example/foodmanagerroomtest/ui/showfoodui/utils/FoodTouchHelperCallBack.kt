@@ -2,14 +2,25 @@ package com.example.foodmanagerroomtest.ui.showfoodui.utils
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodmanagerroomtest.database.domain.Food
 import com.example.foodmanagerroomtest.ui.showfoodui.viewmodel.ShowFoodViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class FoodTouchHelperCallBack(private val showFoodViewModel: ShowFoodViewModel) : ItemTouchHelper.Callback() {
+@ExperimentalCoroutinesApi
+class FoodTouchHelperCallBack(
+    private var showFoodViewModel: ShowFoodViewModel,
+    private var showFoodAdapter: FoodAdapter
+) : ItemTouchHelper.Callback() {
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        return 0
+        val dragFlag = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+        val swipeFlag = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        return makeMovementFlags(
+            dragFlag,
+            swipeFlag
+        )
     }
 
     override fun onMove(
@@ -21,5 +32,12 @@ class FoodTouchHelperCallBack(private val showFoodViewModel: ShowFoodViewModel) 
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        val listFood: MutableList<Food> = showFoodViewModel.getListFood()!!
+        if (direction == ItemTouchHelper.RIGHT)
+            showFoodViewModel.deleteFood(listFood[viewHolder.adapterPosition])
+        else if(direction == ItemTouchHelper.LEFT)
+            (viewHolder as FoodAdapter.FoodViewHolder).updateAction.onClick(viewHolder.itemView)
+        //Cần phải submit lại list
+        showFoodAdapter.submitList(listFood)
     }
 }

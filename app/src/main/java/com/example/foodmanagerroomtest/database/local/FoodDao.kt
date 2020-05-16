@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FoodDao {
     @Query("SELECT * FROM FOODS")
-    fun getListFoods(): Flow<List<Food>>
+    fun getListFoods(): Flow<MutableList<Food>>
 
     @Insert(onConflict = REPLACE)
     suspend fun insertFood(food: Food)

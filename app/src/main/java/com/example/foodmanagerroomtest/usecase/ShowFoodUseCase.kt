@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ShowFoodUseCase {
     var foodRepository: FoodRepository
-    fun getListFood() : Flow<List<Food>>
+    fun getListFood() : Flow<MutableList<Food>>
     suspend fun deleteFood(food: Food)
 }

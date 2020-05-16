@@ -19,7 +19,7 @@ class AddFoodFragment : Fragment() {
     private lateinit var bindingFragment: FragmentAddFoodBinding
     private val addFoodViewModel by viewModel<AddFoodViewModel>()
     private val submitAction by lazy {
-        OnClickListener {
+        OnClickListener { _ ->
             addFoodViewModel.addFood(
                 bindingFragment.food!!
             )
@@ -32,7 +32,7 @@ class AddFoodFragment : Fragment() {
             foodNavigate.popBackStack()
         }
     }
-    private val cancelAction by lazy { OnClickListener { foodNavigate.popBackStack() } }
+    private val cancelAction by lazy { OnClickListener { _ -> foodNavigate.popBackStack() } }
     private val foodNavigate by lazy { findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater,

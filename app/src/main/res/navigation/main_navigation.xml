@@ -24,5 +24,9 @@
     <fragment
         android:id="@+id/updateFoodFragment"
         android:name="com.example.foodmanagerroomtest.ui.updatefoodui.view.UpdateFoodFragment"
-        android:label="UpdateFoodFragment" />
+        android:label="UpdateFoodFragment" >
+        <argument
+            android:name="food"
+            app:argType="com.example.foodmanagerroomtest.database.domain.Food" />
+    </fragment>
 </navigation>

@@ -7,7 +7,9 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     defaultConfig {
         applicationId "com.example.foodmanagerroomtest"
         minSdkVersion 28

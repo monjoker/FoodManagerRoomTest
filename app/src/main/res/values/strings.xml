@@ -6,4 +6,6 @@
     <string name="title_description_food">Description</string>
     <string name="success">\" success\"</string>
     <string name="show_food">Show food</string>
+    <string name="update_food">Update Food</string>
+    <string name="id_text">id:</string>
 </resources>

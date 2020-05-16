@@ -14,17 +14,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 class FoodAdapter : ListAdapter<Food, FoodAdapter.FoodViewHolder>(diff) {
-    private lateinit var showFoodFragment: ShowFoodFragment
+    lateinit var showFoodFragment: ShowFoodFragment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder =
         FoodViewHolder.createViewHolder(parent, viewType, showFoodFragment)
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
-        holder.bindViewHolder(getItem(position))
-    }
-
-    fun setFrag(showFoodFragment: ShowFoodFragment){
-        this.showFoodFragment = showFoodFragment
+        holder.food = getItem(position)
+        holder.bindViewHolder()
     }
 
     @ExperimentalCoroutinesApi
@@ -32,16 +29,16 @@ class FoodAdapter : ListAdapter<Food, FoodAdapter.FoodViewHolder>(diff) {
         private val itemBinding: ItemFoodBinding,
         private val showFoodFragment: ShowFoodFragment
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bindViewHolder(item: Food?) = with(item){
-            itemBinding.food = this
+        lateinit var food: Food
+        fun bindViewHolder(){
+            itemBinding.food = food
+            itemBinding.executePendingBindings()
             itemBinding.updateBtn.setOnClickListener(updateAction)
         }
 
-        private val updateAction by lazy {
-            View.OnClickListener {
-                showFoodFragment.foodNavigate.navigate(
-                    ShowFoodFragmentDirections.actionShowFoodFragmentToUpdateFoodFragment()
-                )
+        val updateAction by lazy {
+            View.OnClickListener { _ ->
+                showFoodFragment.foodNavigate.navigate(ShowFoodFragmentDirections.actionShowFoodFragmentToUpdateFoodFragment(food))
             }
         }
 

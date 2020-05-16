@@ -5,7 +5,7 @@ import com.example.foodmanagerroomtest.repository.FoodRepository
 import kotlinx.coroutines.flow.Flow
 
 class ShowFoodUseCaseImpl(override var foodRepository: FoodRepository) : ShowFoodUseCase {
-    override fun getListFood(): Flow<List<Food>> = foodRepository.getListFood()
+    override fun getListFood() = foodRepository.getListFood()
     override suspend fun deleteFood(food: Food) =
         foodRepository.deleteFood(food)
 }

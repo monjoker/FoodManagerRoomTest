@@ -5,5 +5,5 @@ import com.example.foodmanagerroomtest.repository.FoodRepository
 
 interface UpdateFoodUseCase {
     var foodRepository: FoodRepository
-    suspend fun updateFood(food: Food): Unit
+    suspend fun updateFood(food: Food)
 }
