@@ -11,20 +11,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodmanagerroomtest.R
+import com.example.foodmanagerroomtest.database.domain.Food
 import com.example.foodmanagerroomtest.databinding.FragmentShowFoodBinding
 import com.example.foodmanagerroomtest.ui.showfoodui.utils.FoodAdapter
 import com.example.foodmanagerroomtest.ui.showfoodui.utils.FoodTouchHelperCallBack
 import com.example.foodmanagerroomtest.ui.showfoodui.viewmodel.ShowFoodViewModel
+import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
-class ShowFoodFragment : Fragment() {
+class ShowFoodFragment : Fragment(), FoodAdapter.CallBackAdapter {
     private lateinit var bindingFragment: FragmentShowFoodBinding
     private val showFoodViewModel by viewModel<ShowFoodViewModel>()
-    private val foodAdapter by lazy { FoodAdapter() }
-    val foodNavigate by lazy { findNavController() }
-    private val foodTouchHelper by lazy { ItemTouchHelper(FoodTouchHelperCallBack(showFoodViewModel,foodAdapter)) }
+    private val foodAdapter = get<FoodAdapter>()
+    private val foodNavigate by lazy { findNavController() }
+    private val foodTouchHelper by lazy { ItemTouchHelper(FoodTouchHelperCallBack(showFoodViewModel, foodAdapter)) }
     private val addClickBtn by lazy {
         View.OnClickListener {_->
             foodNavigate.navigate(
@@ -32,13 +35,14 @@ class ShowFoodFragment : Fragment() {
             )
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         bindingFragment = DataBindingUtil.inflate(inflater, R.layout.fragment_show_food, container, false)
-        foodAdapter.showFoodFragment = this
+        foodAdapter.callBackAdapter = this
         return bindingFragment.root
     }
 
@@ -55,5 +59,18 @@ class ShowFoodFragment : Fragment() {
         }
         foodTouchHelper.attachToRecyclerView(showFoodRecycler)
         bindingFragment.addFoodBtn.setOnClickListener(addClickBtn)
+    }
+
+    override fun update(item: Food) {
+        foodNavigate.navigate(ShowFoodFragmentDirections.actionShowFoodFragmentToUpdateFoodFragment(item))
+    }
+
+    override fun delete(item: Food) {
+        showFoodViewModel.deleteFood(item)
+        Toasty.success(
+                requireContext(),
+        resources.getString(R.string.delete) + " " + getString(R.string.success),
+        Toasty.LENGTH_SHORT
+        ).show()
     }
 }

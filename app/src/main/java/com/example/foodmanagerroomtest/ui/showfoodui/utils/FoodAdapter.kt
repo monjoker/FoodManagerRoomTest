@@ -8,16 +8,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodmanagerroomtest.database.domain.Food
 import com.example.foodmanagerroomtest.databinding.ItemFoodBinding
-import com.example.foodmanagerroomtest.ui.showfoodui.view.ShowFoodFragment
-import com.example.foodmanagerroomtest.ui.showfoodui.view.ShowFoodFragmentDirections
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class FoodAdapter : ListAdapter<Food, FoodAdapter.FoodViewHolder>(diff) {
-    lateinit var showFoodFragment: ShowFoodFragment
+class FoodAdapter :
+    ListAdapter<Food, FoodAdapter.FoodViewHolder>(diff) {
+    lateinit var callBackAdapter: CallBackAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder =
-        FoodViewHolder.createViewHolder(parent, viewType, showFoodFragment)
+        FoodViewHolder.createViewHolder(parent, viewType, callBackAdapter)
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         holder.food = getItem(position)
@@ -27,18 +26,27 @@ class FoodAdapter : ListAdapter<Food, FoodAdapter.FoodViewHolder>(diff) {
     @ExperimentalCoroutinesApi
     class FoodViewHolder(
         private val itemBinding: ItemFoodBinding,
-        private val showFoodFragment: ShowFoodFragment
+        private val callBackAdapter: CallBackAdapter
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         lateinit var food: Food
         fun bindViewHolder(){
             itemBinding.food = food
             itemBinding.executePendingBindings()
             itemBinding.updateBtn.setOnClickListener(updateAction)
+            itemBinding.deleteBtn.setOnClickListener(deleteAction)
         }
 
         val updateAction by lazy {
             View.OnClickListener { _ ->
-                showFoodFragment.foodNavigate.navigate(ShowFoodFragmentDirections.actionShowFoodFragmentToUpdateFoodFragment(food))
+                //showFoodFragment.foodNavigate.navigate(ShowFoodFragmentDirections.actionShowFoodFragmentToUpdateFoodFragment(food))
+                callBackAdapter.update(food)
+            }
+        }
+
+        val deleteAction by lazy {
+            View.OnClickListener {
+                //showFoodViewModel.deleteFood(food)
+                callBackAdapter.delete(food)
             }
         }
 
@@ -46,13 +54,18 @@ class FoodAdapter : ListAdapter<Food, FoodAdapter.FoodViewHolder>(diff) {
             fun createViewHolder(
                 parent: ViewGroup,
                 viewType: Int,
-                showFoodFragment: ShowFoodFragment
+                callBackAdapter: CallBackAdapter
             ): FoodViewHolder = FoodViewHolder(
                 ItemFoodBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
-                ), showFoodFragment
+                ), callBackAdapter
             )
         }
+    }
+
+    interface CallBackAdapter {
+        fun update(item: Food)
+        fun delete(item: Food)
     }
 
     companion object {

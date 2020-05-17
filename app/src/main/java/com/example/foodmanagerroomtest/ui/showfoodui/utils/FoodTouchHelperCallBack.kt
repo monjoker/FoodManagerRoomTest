@@ -33,10 +33,13 @@ class FoodTouchHelperCallBack(
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val listFood: MutableList<Food> = showFoodViewModel.getListFood()!!
-        if (direction == ItemTouchHelper.RIGHT)
-            showFoodViewModel.deleteFood(listFood[viewHolder.adapterPosition])
+        val foodViewHolder = viewHolder as FoodAdapter.FoodViewHolder
+        if (direction == ItemTouchHelper.RIGHT){
+            //showFoodViewModel.deleteFood(listFood[viewHolder.adapterPosition])
+            foodViewHolder.deleteAction.onClick(viewHolder.itemView)
+        }
         else if(direction == ItemTouchHelper.LEFT)
-            (viewHolder as FoodAdapter.FoodViewHolder).updateAction.onClick(viewHolder.itemView)
+            foodViewHolder.updateAction.onClick(viewHolder.itemView)
         //Cần phải submit lại list
         showFoodAdapter.submitList(listFood)
     }

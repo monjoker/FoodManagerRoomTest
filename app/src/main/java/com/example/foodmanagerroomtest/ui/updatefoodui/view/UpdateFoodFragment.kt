@@ -27,10 +27,11 @@ class UpdateFoodFragment : Fragment() {
             updateFoodViewModel.updateFood()
             Toasty.success(
                 requireContext(),
-                getString(R.string.update_food) + foodInput.name + getString(R.string.success),
-                Toasty.LENGTH_SHORT,
+                getString(R.string.update_food) + " " + foodInput.name + " " + getString(R.string.success),
+                Toasty.LENGTH_LONG,
                 true
-            )::show
+            ).show()
+            //SystemClock.sleep(2000)
             foodNavigate.popBackStack()
         }
     }

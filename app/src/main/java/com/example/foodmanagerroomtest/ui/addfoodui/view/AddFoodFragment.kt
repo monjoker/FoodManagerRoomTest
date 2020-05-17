@@ -25,11 +25,15 @@ class AddFoodFragment : Fragment() {
             )
             Toasty.success(
                 requireContext(),
-                getString(R.string.add_food) + bindingFragment.food?.name + getString(R.string.success),
+                getString(R.string.add_food) + " " + bindingFragment.food?.name + " " + getString(R.string.success),
                 Toasty.LENGTH_SHORT,
                 true
-            )::show
+            ).show()
+//            Handler().postDelayed({
+//                foodNavigate.popBackStack()
+//            }, 2000)
             foodNavigate.popBackStack()
+            //SystemClock.sleep(2000)
         }
     }
     private val cancelAction by lazy { OnClickListener { _ -> foodNavigate.popBackStack() } }
